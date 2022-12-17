@@ -6,7 +6,7 @@
 
     Try changing "table" to "view" below
 */
-
+/*
 {{ config(materialized='table') }}
 
 with source_data as (
@@ -19,7 +19,22 @@ with source_data as (
 
 select *
 from source_data
+*/
 
+
+WITH raw_reviews AS (
+ SELECT
+ *
+ FROM
+ AIRBNB.RAW.RAW_REVIEWS
+)
+SELECT
+ listing_id,
+ date AS review_date,
+ reviewer_name,
+ comments  AS review_text,
+ sentiment AS review_sentiment
+FROM raw_reviews
 /*
     Uncomment the line below to remove records with null `id` values
 */
