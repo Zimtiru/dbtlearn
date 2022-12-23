@@ -1,23 +1,21 @@
-
-with stg_sales as(
-  select *
-  from  {{ref('staging_sales')}} 
-),
---select * from stg_sales
-
- 
-  dim_sales as(
-  select *
- from  {{ref('dim_sales')}} 
-),
-
---select * from dim_sales
-
-sales_fact as (
-select * from stg_sales a
-left outer join  dim_sales b on a.sales_personname=b.salespersonname
---left outer join test2 b on a.sales_personname=b.sales_person_name
-)
-select * from sales_fact
-
-
+WITH stg_sales
+AS (
+	SELECT *
+	FROM {{ref('staging_sales') }}
+	),
+	--select * from stg_sales
+dim_sales
+AS (
+	SELECT *
+	FROM {{ref('dim_sales') }}
+	),
+	--select * from dim_sales
+sales_fact
+AS (
+	SELECT *
+	FROM stg_sales a
+	LEFT OUTER JOIN dim_sales b ON a.sales_personname = b.salespersonname
+		--left outer join test2 b on a.sales_personname=b.sales_person_name
+	)
+SELECT *
+FROM sales_fact
