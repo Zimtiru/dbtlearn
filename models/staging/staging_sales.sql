@@ -2,12 +2,18 @@ WITH sales_listing
 AS (
 	SELECT *
 		,CASE 
-			WHEN sales_person_name IS NULL
-				OR sales_person_name = ''
+			WHEN product_name IS NULL
+				OR product_name = ''
+				THEN 'Produsct Name Not Found'
+			ELSE product_name
+			END AS product_name_desc
+		,CASE 
+			WHEN sales_personname IS NULL
+				OR sales_personname = ''
 				THEN 'Person Name Not Found'
-			ELSE sales_person_name
+			ELSE sales_personname
 			END AS sales_person_name_desc
-	FROM {{ ref('dim_sales') }}
+	FROM DBT_DEMO.DEMO.sales
 	)
 SELECT *
 FROM sales_listing
