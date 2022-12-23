@@ -1,13 +1,19 @@
-with sales_listing as (
-    select *,
-      case 
-         when product_name is null or product_name =''  then 'Produsct Name Not Found'
-     else product_name
-    end as  product_name_desc,
-      case 
-         when sales_personname  is null or sales_personname  =''  then 'Person Name Not Found'
-     else sales_personname  
-    end as sales_person_name_desc   
-    from DBT_DEMO.DEMO.sales
-)
-  select * from  sales_listing 
+WITH sales_listing
+AS (
+	SELECT *
+		,CASE 
+			WHEN product_name IS NULL
+				OR product_name = ''
+				THEN 'Produsct Name Not Found'
+			ELSE product_name
+			END AS product_name_desc
+		,CASE 
+			WHEN sales_personname IS NULL
+				OR sales_personname = ''
+				THEN 'Person Name Not Found'
+			ELSE sales_personname
+			END AS sales_person_name_desc
+	FROM DBT_DEMO.DEMO.sales
+	)
+SELECT *
+FROM sales_listing
