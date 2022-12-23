@@ -1,14 +1,16 @@
 
 
-with product_listing as (
-    select *,
-      case 
-         when product_name is null or product_name =''  then 'Produsct Name Not Found'
-     else product_name 
-    end as product_name_desc
-    
-     FROM
- {{ ref('dim_product') }}
-)
-  select * from  product_listing
+WITH product_listing
+AS (
+	SELECT *
+		,CASE 
+			WHEN product_name IS NULL
+				OR product_name = ''
+				THEN 'Produsct Name Not Found'
+			ELSE product_name
+			END AS product_name_desc
+	FROM {{ ref('dim_product') }}
+	)
+SELECT *
+FROM product_listing
 
