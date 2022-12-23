@@ -1,3 +1,4 @@
+
 {{
    config(
       materialized='view'
@@ -19,7 +20,7 @@ AS (
 				THEN 'Person Name Not Found'
 			ELSE sales_personname
 			END AS sales_person_name_desc
-	FROM  {{ref('dim_sales')}}
+	FROM  {{ref('sales')}}
 	)
 SELECT *
 FROM sales_listing
