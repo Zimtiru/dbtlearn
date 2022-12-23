@@ -19,7 +19,7 @@ AS (
 				THEN 'Person Name Not Found'
 			ELSE sales_personname
 			END AS sales_person_name_desc
-	FROM DBT_DEMO.DEMO.sales
+	FROM  {{ref('dim_sales')}}
 	)
 SELECT *
 FROM sales_listing
