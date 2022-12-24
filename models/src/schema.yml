@@ -27,3 +27,13 @@ models:
             tests:
                 - unique
                 - not_null
+
+                version: 2
+
+models:
+    - name: dim_product
+      columns:
+          - name: productid
+          -tests:
+          - dbt_utils.not_null_where:
+              where: "_deleted = false"
