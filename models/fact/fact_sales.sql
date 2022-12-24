@@ -16,7 +16,7 @@ select
     salespersonid,
     productid,
     sum(soldqty) as totalsoldqty,
-    product_name_desc as productnamedesc,
-    sales_person_name_desc as salespersonnamedesc
+    productnamedesc,
+    salespersonnamedesc
 from sales_fact
-group by salesdate, salespersonid, productid, product_name_desc, sales_person_name_desc
+group by salesdate, salespersonid, productid, productnamedesc, salespersonnamedesc
