@@ -1,30 +1,22 @@
-WITH stg_sales
-AS (
-	SELECT *
-	FROM {{ref('staging_sales') }}
-	),
---select * from stg_sales
- dim_sales
-AS (
-	SELECT salespersonid,salespersonname
-	FROM {{ref('dim_sales') }}
-	),
+with
+    stg_sales as (select * from {{ ref("staging_sales") }}),
+    -- select * from stg_sales
+    dim_sales as (select salespersonid, salespersonname from {{ ref("dim_sales") }}),
 
- dim_product
-AS (
-	SELECT productid,productname
-	FROM {{ref('dim_product') }}
-	),
---	select * from dim_product
-
-sales_fact
-AS (
-	SELECT *
-	FROM stg_sales a
-	INNER  JOIN dim_sales b ON a.sales_personname = b.salespersonname
-	INNER  JOIN dim_product p ON a.product_name = p.productname
-	)
-SELECT  SALESDATE, salespersonid,productid,soldqty,
-PRODUCT_NAME_DESC as PRODUCTNAMEDESC,
-SALES_PERSON_NAME_DESC as SALESPERSONNAMEDESC
-FROM sales_fact
+    dim_product as (select productid, productname from {{ ref("dim_product") }}),
+    -- select * from dim_product
+    sales_fact as (
+        select *
+        from stg_sales a
+        inner join dim_sales b on a.sales_personname = b.salespersonname
+        inner join dim_product p on a.product_name = p.productname
+    )
+select
+    salesdate,
+    salespersonid,
+    productid,
+    sum(soldqty) as totalsoldqty,
+    product_name_desc as productnamedesc,
+    sales_person_name_desc as salespersonnamedesc
+from sales_fact
+group by salesdate, salespersonid, productid, product_name_desc, sales_person_name_desc
