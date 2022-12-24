@@ -11,8 +11,8 @@ with
         inner join dim_sales b on a.sales_personname = b.salespersonname
         inner join dim_product p on a.product_name = p.productname
     )
-select
-    salesdate,
+select  
+    to_date(salesdate) as salesdate,
     salespersonid,
     productid,
     sum(soldqty) as totalsoldqty,
@@ -20,3 +20,4 @@ select
     salespersonnamedesc
 from sales_fact
 group by salesdate, salespersonid, productid, productnamedesc, salespersonnamedesc
+order by salesdate desc
