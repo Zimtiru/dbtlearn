@@ -1,7 +1,7 @@
 WITH sales_listing
 AS (
 	SELECT *
-		,CASE 
+/*		,CASE 
 			WHEN product_name IS NULL
 				OR product_name = ''
 				THEN 'Produsct Name Not Found'
@@ -13,6 +13,7 @@ AS (
 				THEN 'Person Name Not Found'
 			ELSE sales_personname
 			END AS salespersonnamedesc
+*/
 	FROM DBT_DEMO.DEMO.sales
 	)
 SELECT *
