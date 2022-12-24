@@ -21,8 +21,8 @@ sales_fact
 AS (
 	SELECT *
 	FROM stg_sales a
-	LEFT OUTER JOIN dim_sales b ON a.sales_personname = b.salespersonname
-	LEFT OUTER JOIN dim_product p ON a.product_name = p.productname
+	INNER  JOIN dim_sales b ON a.sales_personname = b.salespersonname
+	INNER  JOIN dim_product p ON a.product_name = p.productname
 	)
 SELECT  SALESDATE, salespersonid,productid,soldqty,
 PRODUCT_NAME_DESC as PRODUCTNAMEDESC,
