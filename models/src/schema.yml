@@ -28,14 +28,6 @@ models:
                 - unique
                 - not_null
 
-    - name: dim_product
-      description: "A starter dbt model"
-      columns:
-          - name: productid
-            description: "The primary key for this table"
-            tests:
-                - dbt_utils.not_null_where:
-                where: "_deleted = false"
 
                                
 
