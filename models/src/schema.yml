@@ -2,24 +2,24 @@
 version: 2
 
 models:
-    - name: my_first_dbt_model
+    - name: dim_product
       description: "A starter dbt model"
       columns:
-          - name: id
+          - name: productid
             description: "The primary key for this table"
             tests:
                 - unique
                 - not_null
 
-    - name: my_second_dbt_model
+    - name: dim_sales
       description: "A starter dbt model"
       columns:
-          - name: id
+          - name: sales_personid
             description: "The primary key for this table"
             tests:
                 - unique
                 - not_null
-    - name: MyFirstModel
+    - name: sales
       description: "A starter dbt model"
       columns:
           - name: id
