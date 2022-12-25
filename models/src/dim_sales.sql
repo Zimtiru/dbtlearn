@@ -2,7 +2,7 @@
 
 with
     sales_product_listing as (
-        select salespersonid, salespersonname from  {{ref('dim_sales_product')}}
+        select salespersonid, salespersonname from  DBT_DEMO.DEMO.DIM_PRODUCT
         
     )
 select *
