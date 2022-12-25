@@ -14,19 +14,12 @@ models:
     - name: dim_sales
       description: "A starter dbt model"
       columns:
-          - name: sales_personid
+          - name: salespersonid
             description: "The primary key for this table"
             tests:
                 - unique
                 - not_null
-    - name: sales
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
-            tests:
-                - unique
-                - not_null
+
                  
 
                                
