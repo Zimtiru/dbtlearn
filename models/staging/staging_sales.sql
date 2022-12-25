@@ -1,25 +1,20 @@
-{{
-   config(
-      materialized='view'
-   )
-}}
 
-WITH sales_listing
-AS (
-	SELECT *
-		,CASE 
-			WHEN productname IS NULL
-				OR productname = ''
-				THEN 'Produsct Name Not Found'
-			ELSE productname
-			END AS productnamedesc
-		,CASE 
-			WHEN salespersonname IS NULL
-				OR salespersonname = ''
-				THEN 'Person Name Not Found'
-			ELSE salespersonname
-			END AS salespersonnamedesc
-	FROM  {{ref('sales')}}
-	)
-SELECT *
-FROM sales_listing
+
+with
+    saleslisting_vw as (
+        select
+            *,
+            case
+                when productname is null or productname = ''
+                then 'Produsct Name Not Found'
+                else productname
+            end as productnamedesc,
+            case
+                when salespersonname is null or salespersonname = ''
+                then 'Person Name Not Found'
+                else salespersonname
+            end as salespersonnamedesc
+        from {{ ref("sales") }}
+    )
+select *
+from saleslisting_vw
