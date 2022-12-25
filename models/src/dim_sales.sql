@@ -1,3 +1,8 @@
 
-   select salespersonid , salespersonname 
-   from DBT_DEMO.DEMO.dim_sales_product
+
+with
+    sales_product_listing as (
+        select salespersonid, salespersonname from dbt_demo.demo.dim_sales_product
+    )
+select *
+from sales_product_listing

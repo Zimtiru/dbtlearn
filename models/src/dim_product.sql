@@ -1,5 +1,7 @@
 
-with product_listing as (
-            select productid, productname from dbt_demo.demo.dim_product
+with
+    product_listing as (
+        select productid, productname from dbt_demo.demo.dim_product
     )
-select * from product_listing 
+select *
+from  product_listing
