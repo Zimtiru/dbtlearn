@@ -1,2 +1,2 @@
-    select productid,product_name as productname
+    select productid,productname
     from DBT_DEMO.DEMO.dim_product
