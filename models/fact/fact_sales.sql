@@ -8,8 +8,8 @@ with
     sales_fact_1 as (
         select *
         from stg_sales a
-        inner join dim_sales b on a.sales_personname = b.salespersonname
-        inner join dim_product p on a.product_name = p.productname
+        inner join dim_sales b on a.salespersonname = b.salespersonname
+        inner join dim_product p on a.productname = p.productname
     ),
 fact_sales_2 as (
 select  
