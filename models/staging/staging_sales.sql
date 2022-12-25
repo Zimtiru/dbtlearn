@@ -8,16 +8,16 @@ WITH sales_listing
 AS (
 	SELECT *
 		,CASE 
-			WHEN product_name IS NULL
-				OR product_name = ''
+			WHEN productname IS NULL
+				OR productname = ''
 				THEN 'Produsct Name Not Found'
-			ELSE product_name
+			ELSE productname
 			END AS productnamedesc
 		,CASE 
-			WHEN sales_personname IS NULL
-				OR sales_personname = ''
+			WHEN salespersonname IS NULL
+				OR salespersonname = ''
 				THEN 'Person Name Not Found'
-			ELSE sales_personname
+			ELSE salespersonname
 			END AS salespersonnamedesc
 	FROM  {{ref('sales')}}
 	)
