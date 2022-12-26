@@ -1,10 +1,16 @@
 with
-    staging_sales as (select * from {{ ref("stg_sales_listing") }}),
+    staging_sales as (
+                        select * from {{ ref("stg_sales_listing") }}
+                     ),
     -- select * from  staging_sales
-    dim_sales as (select * from {{ ref("dim_sales") }}),
+    dim_sales as (
+                        select * from {{ ref("dim_sales") }}
+                ),
 
     -- select * from  dim_sales
-    dim_product as (select * from {{ ref("dim_product") }}),
+    dim_product as (
+                        select * from {{ ref("dim_product") }}
+                    ),
 
     final as (
         select
