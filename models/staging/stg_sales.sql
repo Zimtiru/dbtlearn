@@ -1,5 +1,5 @@
     with
-    sales_listing as (
+    stg_sales_listing as (
         select
             *,
             case
@@ -12,7 +12,7 @@
                 then 'Person Name Not Found'
                 else salespersonname
             end as salespersonnamedesc
-        from  DBT_DEMO.DEMO.SALES
+        from  {{ref('sales_listing')}}
     )
 select *
-from sales_listing
+from stg_sales_listing
