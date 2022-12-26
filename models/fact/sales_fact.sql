@@ -20,8 +20,8 @@ with
             a.salespersonnamedesc,
             a.productnamedesc
         from staging_sales a
-        inner join dim_sales b on upper(a.salespersonname) = upper(b.salespersonname)
-        inner join dim_product c on upper(a.productname) = upper(c.productname)
+        inner join dim_sales b   on upper(a.salespersonname) = upper(b.salespersonname)
+        inner join dim_product c on upper(a.productname)     = upper(c.productname)
     )
 select *
 from final
