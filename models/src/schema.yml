@@ -1,7 +1,7 @@
 version: 2
 
 models:
-    - name: dbt_product
+    - name: dim_product
       description: "A starter dbt model"
       columns:
           - name: productid
