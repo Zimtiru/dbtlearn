@@ -35,4 +35,6 @@ models:
     # Applies to all files under models/example/
     example:
       materialized: view
-
+packages:
+  - package: fishtown-analytics/dbt_utils
+    version: 0.7.0
