@@ -4,7 +4,7 @@
             *,
             case
                 when productname is null or productname = ''
-                then 'Produsct Name Not Found'
+                then 'Product Name Not Found'
                 else productname
             end as productnamedesc,
             case
