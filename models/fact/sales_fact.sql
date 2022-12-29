@@ -1,4 +1,6 @@
-{{ config(materialized="view") }}
+{{ 
+    config(materialized="view") 
+    }}
 
 with
     staging_sales as (select * from {{ ref("stg_sales_listing") }}),
