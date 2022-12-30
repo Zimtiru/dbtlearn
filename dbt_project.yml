@@ -33,7 +33,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   dbtlearn_project:
     # Applies to all files under models/example/
-    example:
+    fact:
       materialized: view
       
 
