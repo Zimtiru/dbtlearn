@@ -12,7 +12,7 @@
                 then 'Person Name Not Found'
                 else salespersonname
             end as salespersonnamedesc
-        from  {{ref('sales_listing')}}
+        from  {{ref('sales_source')}}
     )
 select *
 from stg_sales_listing
