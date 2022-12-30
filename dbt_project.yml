@@ -36,6 +36,11 @@ models:
     example:
       materialized: view
       
-packages:
-  - package: fishtown-analytics/dbt_utils
-    version: 0.7.0
+models:
+  dbtlearn_project:
+      +materialized: view
+    # Applies to all files under models/example/
+    models:
+      materialized: view
+      src:
+      materialized: table
