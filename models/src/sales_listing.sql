@@ -8,7 +8,7 @@ COPY INTO DBT_DEMO.DEMO.SALES (salesdate,salespersonname,productname,soldqty )
  */
 
 with
-    sales_listing as (
+    sales_source_file as (
         select
             *          
         from  DBT_DEMO.DEMO.SALES
