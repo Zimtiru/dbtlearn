@@ -10,6 +10,6 @@
     )
 }} 
 
-select * from {{ source('DBT_DEMO', 'sales_source') }}
+select * from {{source('dbtlearn', 'sales_source') }}
 
 {% endsnapshot %}
