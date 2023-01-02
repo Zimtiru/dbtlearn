@@ -14,8 +14,7 @@ profile: 'default'
 model-paths: ["models"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
-#seed-paths: "https://dbtlearn.s3.us-east-2.amazonaws.com/seed_full_moon_dates.csv -o seeds/seed_full_moon_dates.csv"
-#seed-paths: ["seeds"]
+seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
@@ -40,5 +39,5 @@ models:
       +materialized: table
     staging:
       +materialized: view
-      
+
 
