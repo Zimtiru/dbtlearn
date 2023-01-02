@@ -9,7 +9,7 @@
     invalidate_hard_deletes=True
  )
     }}
-    select * from {{ source('dbtlearn', 'sales_fact') }}  ,
+    select * from {{ ref('sales_fact') }}  ,
 
 {% endsnapshot %}
 
