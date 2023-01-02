@@ -17,5 +17,4 @@ models:
             tests:
                 - unique
                 - not_null
-    - name: sales_source
-      description: "A starter dbt model"
+
