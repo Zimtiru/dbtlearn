@@ -1,5 +1,4 @@
 version: 2
-
 models:
     - name: dim_product
       description: "A starter dbt model"
@@ -18,17 +17,3 @@ models:
             tests:
                 - unique
                 - not_null
-sources:
- - name: dbt_demo
-    schema: dbt_atefera
-    tables:
-        - name: sales_source
-          identifier: sales_source
-        - name: dim_product
-          identifier: dim_product
-        - name: dim_sales
-          identifier: dim_sales
-    loaded_at_field: date
-    freshness:
-        warn_after: {count: 1, period: hour}
-        error_after: {count: 24, period: hour}
