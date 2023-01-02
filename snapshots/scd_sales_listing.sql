@@ -1,7 +1,7 @@
 {% snapshot scd_raw_listings %}
 {{
  config(
- target_schema='dev',
+ target_schema='DBT_DEMO',
  unique_key='id',
  strategy='timestamp',
  updated_at='updated_at',
