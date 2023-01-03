@@ -18,12 +18,13 @@ with
             b.salespersonid,
             a.salespersonnamedesc,
             a.productnamedesc,
+            validationdesc,
             sum(a.soldqty) as TotalSoldqty
         from staging_sales a
         inner join dim_sales b   on upper(a.salespersonname) = upper(b.salespersonname)
         inner join dim_product c on upper(a.productname)     = upper(c.productname)
-        group by 1,2,3,4,5
+        group by 1,2,3,4,5,6
     )
 select distinct
-    date(salesdate) as salesdate, productid, salespersonid, TotalSoldqty, salespersonnamedesc, productnamedesc
+    date(salesdate) as salesdate, productid, salespersonid, TotalSoldqty, salespersonnamedesc, productnamedesc,validationdesc
 from final
