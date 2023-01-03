@@ -1,13 +1,12 @@
 
 
 with staging_sales as (
-    select  salesdate, soldqty,productname,salespersonname,validationdesc from {{ ref("stg_sales_listing") }})
+    select  salesdate, soldqty,productname,salespersonname,validationdesc from {{ ref("stg_sales_listing") }}),
+    --select * from  staging_sales
 
-    select * from  staging_sales
+     dim_sales as (select * from {{ ref("dim_sales") }}),
 
-    with dim_sales as (select * from {{ ref("dim_sales") }})
-
-    select * from  dim_sales
+    --select * from  dim_sales
     dim_product as (select * from {{ ref("dim_product") }}),
 
     final as (
