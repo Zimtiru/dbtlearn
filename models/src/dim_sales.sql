@@ -1,7 +1,7 @@
 with
-    dim_sales_listing as (
-        select salespersonid, salespersonname from  DBT_DEMO.DEMO.DIM_SALES_PRODUCT
+    dim_saleslisting as (
+         select salespersonid, salespersonname from  DBT_DEMO.DEMO.DIM_SALES
         
     )
 select *
-from dim_sales_listing
+from dim_saleslisting

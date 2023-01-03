@@ -1,7 +1,7 @@
 
 
 with
-    stg_sales_listing_first as (
+    stg1_saleslisting as (
         select
             salesdate,
             soldqty,
@@ -9,10 +9,10 @@ with
             case
                 when salespersonname = '' then null else salespersonname
             end as salespersonname
-        from {{ ref("sales_source") }}
+        from {{ ref("salessource") }}
     ),
     -- select * from  stg_sales_listing_first
-    stg_sales_listing as (
+    stg_saleslisting as (
         select
             *,
             case
@@ -24,7 +24,7 @@ with
                 then 'Person Name Not Found, Product Name Not Found'
             -- else    productname or productname
             end as validationdesc
-        from stg_sales_listing_first
+        from stg1_saleslisting
     )
 select *
-from stg_sales_listing
+from stg_saleslisting
