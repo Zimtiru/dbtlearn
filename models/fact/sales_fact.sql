@@ -17,10 +17,11 @@ with staging_sales as (
             a.validationdesc,
             sum(a.soldqty) as TotalSoldqty
         from staging_sales a
-        inner join dim_sales b   on upper(a.salespersonname) = upper(b.salespersonname)
-        inner join dim_product c on upper(a.productname)     = upper(c.productname)
+        left outer join dim_sales b   on upper(a.salespersonname) = upper(b.salespersonname)
+        left outer join dim_product c on upper(a.productname)     = upper(c.productname)
         group by 1,2,3,4
     )
 select distinct
     date(salesdate) as salesdate, productid, salespersonid, TotalSoldqty,validationdesc
 from final
+order by productid
