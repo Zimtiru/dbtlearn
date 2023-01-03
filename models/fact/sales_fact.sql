@@ -1,7 +1,7 @@
 with
     staging_sales as (
         select salesdate, soldqty, productname, salespersonname, validationdesc
-        from {{ ref("stg_sales_listing") }}
+        from {{ ref("stg_saleslisting") }}
     ),
     -- select * from  staging_sales
     dim_sales as (select * from {{ ref("dim_sales") }}),
