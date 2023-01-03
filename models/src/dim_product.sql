@@ -1,7 +1,7 @@
 with
-    productlisting as (
+    product_listing as (
         select productid, productname from  DBT_DEMO.DEMO.DIM_PRODUCT
 
     )
 select *
-from  productlisting
+from  product_listing
