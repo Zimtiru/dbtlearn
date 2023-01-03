@@ -3,13 +3,12 @@
 with
     stg_sales_listing_first as (
         select
-            *,
-            case
-                when productname = '' then null else productname
-            end as productname_new,
+            salesdate,
+            soldqty,
+            case when productname = '' then null else productname end as productname,
             case
                 when salespersonname = '' then null else salespersonname
-            end as salespersonname_new
+            end as salespersonname
         from {{ ref("sales_source") }}
     ),
     -- select * from  stg_sales_listing_first
