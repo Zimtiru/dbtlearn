@@ -12,19 +12,12 @@ with
     staging_fact as (
         select a.salesdate, c.productid, b.salespersonid, a.validationdesc, a.soldqty
         from staging_sales a
-        inner join
-            dim_sales b
-            on upper(rtrim(ltrim(a.salespersonname)))
-            = upper(rtrim(ltrim(b.salespersonname)))
-        inner join
-            dim_product c
-            on upper(rtrim(ltrim(a.productname))) = upper(rtrim(ltrim(c.productname)))
+        inner join dim_sales b on upper(rtrim(ltrim(a.salespersonname))) = upper(rtrim(ltrim(b.salespersonname)))
+        inner join dim_product c on upper(rtrim(ltrim(a.productname))) = upper(rtrim(ltrim(c.productname)))
     -- group by 1, 2, 3, 4
-    )
+    ),
 
-select *
-from
-    staging_fact
+--select * from staging_fact
 
     final as (
         select
