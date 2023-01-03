@@ -17,11 +17,11 @@ with
         select
             *,
             case
-                when productname is null and salespersonname is not null
+                when productname_new is null and salespersonname_new is not null
                 then 'Product Name Not Found'
-                when productname is not null and salespersonname is null
+                when productname_new is not null and salespersonname_new is null
                 then 'Person Name Not Found'
-                when (productname is null) and (salespersonname is null)
+                when (productname_new is null) and (salespersonname_new is null)
                 then 'Person Name Not Found, Product Name Not Found'
             -- else    productname or productname
             end as validationdesc
