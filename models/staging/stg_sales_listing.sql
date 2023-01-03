@@ -1,18 +1,27 @@
-    with
+with  stg_sales_listing_first as 
+    (
+        select
+            *,
+            case  when productname = '' then null else productname
+            end as productname_new,
+            case when salespersonname = '' then null else salespersonname
+            end as salespersonname_new
+        from {{ ref("sales_source") }}
+    ),
+
+
+--select * from  stg_sales_listing_first
+
     stg_sales_listing as (
         select
             *,
             case
-                when productname is null or productname = ''
-                then 'Product Name Not Found'
-                else productname
-            end as productnamedesc,
-            case
-                when salespersonname is null or salespersonname = ''
-                then 'Person Name Not Found'
-                else salespersonname
-            end as salespersonnamedesc
-        from  {{ref('sales_source')}}
-    )
-select *
-from stg_sales_listing
+                when productname is null and salespersonname is not null then 'Product Name Not Found'
+                when productname is not null and salespersonname is null then 'Person Name Not Found'
+                when (productname is null) and (salespersonname is null) then 'Person Name Not Found, Product Name Not Found'
+             --   else    productname or productname
+            end as validationdesc
+            from stg_sales_listing_first
+                    )
+                select *
+                from stg_sales_listing

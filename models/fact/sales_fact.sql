@@ -18,7 +18,7 @@ with
             b.salespersonid,
             a.salespersonnamedesc,
             a.productnamedesc,
-            sum(a.soldqty) as SoldQty
+            sum(a.soldqty) as TotalSoldqty
         from staging_sales a
         inner join dim_sales b   on upper(a.salespersonname) = upper(b.salespersonname)
         inner join dim_product c on upper(a.productname)     = upper(c.productname)
