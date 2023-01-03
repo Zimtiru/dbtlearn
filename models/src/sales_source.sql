@@ -8,10 +8,10 @@ COPY INTO DBT_DEMO.DEMO.SALES (salesdate,salespersonname,productname,soldqty )
  */
 
 with
-    sales_source as (
+    salessource as (
         select
             *          
         from  DBT_DEMO.DEMO.SALES
     )
 select *
-from sales_source
+from salessource
