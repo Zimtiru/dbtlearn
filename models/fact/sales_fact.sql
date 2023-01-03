@@ -9,31 +9,35 @@ with
     -- select * from  dim_sales
     dim_product as (select * from {{ ref("dim_product") }}),
 
-    final_stg as (
-        select
-            a.salesdate,
-            c.productid,
-            b.salespersonid,
-            a.validationdesc,
-            sum(a.soldqty) as totalsoldqty
+    staging_fact as (
+        select a.salesdate, c.productid, b.salespersonid, a.validationdesc, a.soldqty
         from staging_sales a
-        left outer join
-            dim_sales b on upper(a.salespersonname) = upper(b.salespersonname)
-        left outer join dim_product c on upper(a.productname) = upper(c.productname)
-        group by 1, 2, 3, 4
-    ),
+        inner join
+            dim_sales b
+            on upper(rtrim(ltrim(a.salespersonname)))
+            = upper(rtrim(ltrim(b.salespersonname)))
+        inner join
+            dim_product c
+            on upper(rtrim(ltrim(a.productname))) = upper(rtrim(ltrim(c.productname)))
+    -- group by 1, 2, 3, 4
+    )
 
+select *
+from
+    staging_fact
 
     final as (
         select
             salesdate,
             productid,
             salespersonid,
-            totalsoldqty,
+            soldqty,
             validationdesc,
             case when validationdesc is null then 1 else 2 end as processstatusid
-        from final_stg
+        from staging_fact
     )
-select *
+select      
+    date(salesdate) as salesdate, productid, salespersonid, sum(soldqty) as totalsoldqty
 from final
-where processstatusid = 1
+-- where processstatusid = 1
+group by 1, 2, 3
