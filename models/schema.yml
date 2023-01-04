@@ -17,3 +17,11 @@ models:
             tests:
                 - unique
                 - not_null
+    - name: salessource
+      description: "A starter dbt model"
+      columns:
+          - name: salesid
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
