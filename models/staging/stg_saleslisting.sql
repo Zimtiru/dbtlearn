@@ -38,7 +38,11 @@ with
   */
     final2 as (
         select
-            b.salesdate, b.productname, b.salespersonname, b.soldqty, b.validationdesc,
+            b.salesdate,
+            b.productname,
+            b.salespersonname,
+            b.soldqty,
+            b.validationdesc,
             case when validationdesc is null then 1 else 2 end as proceessstatusid
         from stg_saleslisting b
     ),
