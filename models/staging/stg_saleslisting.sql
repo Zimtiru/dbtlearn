@@ -55,8 +55,8 @@ with
             productname,
             salespersonname,
             soldqty,
-            validationdesc
-         --   case when validationdesc is null then 1 else 2 end as proceessstatusid
+            validationdesc,
+            case when validationdesc is null then 1 else 2 end as proceessstatusid
         from final2
     ),
 
@@ -66,8 +66,8 @@ with
             productname,
             salespersonname,
             soldqty,
-            validationdesc
-         --   proceessstatusid
+            validationdesc,
+            proceessstatusid
         from final3
     -- where proceessstatusid = 1
     )
