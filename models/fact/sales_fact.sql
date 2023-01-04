@@ -1,6 +1,12 @@
 with
     staging_sales as (
-        select salesdate, soldqty, productname, salespersonname, validationdesc
+        select
+            salesdate,
+            productname,
+            salespersonname,
+            soldqty,
+            validationdesc,
+            proceessstatusid
         from {{ ref("stg_saleslisting") }}
     ),
     -- select * from  staging_sales
@@ -10,15 +16,24 @@ with
     dim_product as (select * from {{ ref("dim_product") }}),
 
     staging_fact as (
-        select a.salesdate, c.productid, b.salespersonid, a.validationdesc, a.soldqty
+        select
+            a.salesdate,
+            c.productid,
+            b.salespersonid,
+            a.soldqty,
+            a.validationdesc,
+            proceessstatusid
         from staging_sales a
-        inner join dim_sales b on upper(rtrim(ltrim(a.salespersonname))) = upper(rtrim(ltrim(b.salespersonname)))
-        inner join dim_product c on upper(rtrim(ltrim(a.productname))) = upper(rtrim(ltrim(c.productname)))
-    -- group by 1, 2, 3, 4
+        inner join
+            dim_sales b
+            on upper(rtrim(ltrim(a.salespersonname)))
+            = upper(rtrim(ltrim(b.salespersonname)))
+        inner join
+            dim_product c
+            on upper(rtrim(ltrim(a.productname))) = upper(rtrim(ltrim(c.productname)))
     ),
 
---select * from staging_fact
-
+    -- select * from staging_fact
     final as (
         select
             salesdate,
@@ -26,11 +41,17 @@ with
             salespersonid,
             soldqty,
             validationdesc,
-            case when validationdesc is null then 1 else 2 end as processstatusid
+            proceessstatusid
         from staging_fact
     )
-select      
-    date(salesdate) as salesdate, productid, salespersonid, sum(soldqty) as totalsoldqty
+select
+    date(salesdate) as salesdate,
+    productid,
+    salespersonid,
+    validationdesc,
+    proceessstatusid,
+    sum(soldqty) as totalsoldqty
 from final
 -- where processstatusid = 1
-group by 1, 2, 3
+-- group by salesdate, productid, salespersonid, validationdesc, proceessstatusid
+group by 1, 2, 3, 4, 5
