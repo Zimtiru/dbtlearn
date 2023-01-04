@@ -5,10 +5,8 @@ with
             salesdate,
             soldqty,
             case when productname = '' then null else productname end as productname,
-            case
-                when salespersonname = '' then null else salespersonname
-            end as salespersonname
-        from dbt_demo.demo.sales  -- {{ ref("salessource") }}
+            case when salespersonname = '' then null else salespersonname end as salespersonname
+        from {{ ref("salessource") }}
     ),
     -- select * from stg1_saleslisting
     stg_saleslisting as (
@@ -21,11 +19,10 @@ with
                 then 'Person Name Not Found'
                 when (productname is null) and (salespersonname is null)
                 then 'Person Name Not Found, Product Name Not Found'
-            -- else    productname or productname
             end as validationdesc
         from stg1_saleslisting
     ),
-    -- select * from stg_saleslisting
+ /*    select * from stg_saleslisting
     final1 as (
         select distinct
             salesid,
@@ -36,18 +33,19 @@ with
         group by salesid
     ),
 
-
+  */
     final2 as (
-        select  
+        select
             b.salesdate,
             b.productname,
             b.salespersonname,
             b.soldqty,
-            case
-                when a.validationdesc = '' then null else a.validationdesc
-            end as validationdesc
-        from final1 a
-        left outer join stg_saleslisting b on a.salesid = b.salesid
+            b.validationdesc
+            --case when a.validationdesc = '' then null else a.validationdesc
+            --end as validationdesc
+            from stg_saleslisting b
+        --from final1 a
+        --left outer join stg_saleslisting b on a.salesid = b.salesid
 
     ),
 
@@ -57,8 +55,8 @@ with
             productname,
             salespersonname,
             soldqty,
-            validationdesc,
-            case when validationdesc is null then 1 else 2 end as proceessstatusid
+            validationdesc
+         --   case when validationdesc is null then 1 else 2 end as proceessstatusid
         from final2
     ),
 
@@ -68,11 +66,10 @@ with
             productname,
             salespersonname,
             soldqty,
-            validationdesc,
-            proceessstatusid
+            validationdesc
+         --   proceessstatusid
         from final3
-        where proceessstatusid = 1
-
+    -- where proceessstatusid = 1
     )
 select *
 from fact_sales
