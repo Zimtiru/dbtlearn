@@ -24,13 +24,8 @@ with
             a.validationdesc,
             proceessstatusid
         from staging_sales a
-        inner join
-            dim_sales b
-            on upper(rtrim(ltrim(a.salespersonname)))
-            = upper(rtrim(ltrim(b.salespersonname)))
-        inner join
-            dim_product c
-            on upper(rtrim(ltrim(a.productname))) = upper(rtrim(ltrim(c.productname)))
+        inner join dim_sales b   on upper(rtrim(ltrim(a.salespersonname))) = upper(rtrim(ltrim(b.salespersonname)))
+        inner join dim_product c on upper(rtrim(ltrim(a.productname))) = upper(rtrim(ltrim(c.productname)))
     ),
 
     -- select * from staging_fact
@@ -48,10 +43,10 @@ select
     date(salesdate) as salesdate,
     productid,
     salespersonid,
-    validationdesc,
+    --validationdesc,
     proceessstatusid,
     sum(soldqty) as totalsoldqty
 from final
 -- where processstatusid = 1
 -- group by salesdate, productid, salespersonid, validationdesc, proceessstatusid
-group by 1, 2, 3, 4, 5
+group by 1, 2, 3, 4
