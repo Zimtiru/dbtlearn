@@ -5,7 +5,9 @@ with
             salesdate,
             soldqty,
             case when productname = '' then null else productname end as productname,
-            case when salespersonname = '' then null else salespersonname end as salespersonname
+            case
+                when salespersonname = '' then null else salespersonname
+            end as salespersonname
         from {{ ref("salessource") }}
     ),
     -- select * from stg1_saleslisting
@@ -22,7 +24,7 @@ with
             end as validationdesc
         from stg1_saleslisting
     ),
- /*    select * from stg_saleslisting
+    /*    select * from stg_saleslisting
     final1 as (
         select distinct
             salesid,
@@ -36,17 +38,12 @@ with
   */
     final2 as (
         select
-            b.salesdate,
-            b.productname,
-            b.salespersonname,
-            b.soldqty,
-            b.validationdesc
-            --case when a.validationdesc = '' then null else a.validationdesc
-            --end as validationdesc
-            from stg_saleslisting b
-        --from final1 a
-        --left outer join stg_saleslisting b on a.salesid = b.salesid
-
+            b.salesdate, b.productname, b.salespersonname, b.soldqty, b.validationdesc
+        -- case when a.validationdesc = '' then null else a.validationdesc
+        -- end as validationdesc
+        from stg_saleslisting b
+    -- from final1 a
+    -- left outer join stg_saleslisting b on a.salesid = b.salesid
     ),
 
     final3 as (
