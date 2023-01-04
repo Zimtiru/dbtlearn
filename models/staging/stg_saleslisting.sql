@@ -36,7 +36,7 @@ with
     ),
 
   */
-    final2 as (
+    final as (
         select
             b.salesdate,
             b.productname,
@@ -55,7 +55,7 @@ with
             soldqty,
             validationdesc,
             proceessstatusid
-        from final2
+        from final
     -- where proceessstatusid = 1
     )
 select *
