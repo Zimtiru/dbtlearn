@@ -1,17 +1,16 @@
-
-
 with
     stg1_saleslisting as (
         select
+            salesid,
             salesdate,
             soldqty,
             case when productname = '' then null else productname end as productname,
             case
                 when salespersonname = '' then null else salespersonname
             end as salespersonname
-        from {{ ref("salessource") }}
+        from dbt_demo.demo.sales  -- {{ ref("salessource") }}
     ),
-    -- select * from  stg_sales_listing_first
+    -- select * from stg1_saleslisting
     stg_saleslisting as (
         select
             *,
@@ -25,6 +24,55 @@ with
             -- else    productname or productname
             end as validationdesc
         from stg1_saleslisting
+    ),
+    -- select * from stg_saleslisting
+    final1 as (
+        select distinct
+            salesid,
+            listagg(validationdesc, ', ') within group (
+                order by salesid desc
+            ) validationdesc
+        from stg_saleslisting
+        group by salesid
+    ),
+
+
+    final2 as (
+        select  
+            b.salesdate,
+            b.productname,
+            b.salespersonname,
+            b.soldqty,
+            case
+                when a.validationdesc = '' then null else a.validationdesc
+            end as validationdesc
+        from final1 a
+        left outer join stg_saleslisting b on a.salesid = b.salesid
+
+    ),
+
+    final3 as (
+        select
+            salesdate,
+            productname,
+            salespersonname,
+            soldqty,
+            validationdesc,
+            case when validationdesc is null then 1 else 2 end as proceessstatusid
+        from final2
+    ),
+
+    fact_sales as (
+        select
+            salesdate,
+            productname,
+            salespersonname,
+            soldqty,
+            validationdesc,
+            proceessstatusid
+        from final3
+        where proceessstatusid = 1
+
     )
 select *
-from stg_saleslisting
+from fact_sales
