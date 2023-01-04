@@ -49,7 +49,7 @@ with
 
     fact_sales as (
         select
-            salesdate,
+            Salesdate,
             productname,
             salespersonname,
             soldqty,
